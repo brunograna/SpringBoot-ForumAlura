@@ -27,7 +27,16 @@ public class Topico {
 	@ManyToOne
 	private Curso curso;
 	@OneToMany(mappedBy = "topico")
-	private List<Resposta> respostas = new ArrayList<>();
+	private List<Resposta> respostas = new ArrayList<>();	
+	
+	public Topico() {
+	}
+	
+	public Topico(String titulo, String mensagem, Curso curso) {
+		this.titulo = titulo;
+		this.mensagem = mensagem;
+		this.curso = curso;
+	}
 
 	@Override
 	public int hashCode() {
@@ -118,4 +127,11 @@ public class Topico {
 		this.respostas = respostas;
 	}
 
+	@Override
+	public String toString() {
+		return "Topico [id=" + id + ", titulo=" + titulo + ", mensagem=" + mensagem + ", dataCriacao=" + dataCriacao
+				+ ", status=" + status + ", autor=" + autor + ", curso=" + curso + ", respostas=" + respostas + "]";
+	}
+
+	
 }
