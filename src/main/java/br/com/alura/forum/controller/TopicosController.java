@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.alura.forum.controller.form.TopicoForm;
+import br.com.alura.forum.dto.DetalheDoTopicoDto;
 import br.com.alura.forum.dto.TopicoDto;
 import br.com.alura.forum.modelo.Curso;
 import br.com.alura.forum.modelo.Topico;
@@ -54,5 +56,12 @@ public class TopicosController {
 		//Boas praticas de retorno de criacao de objeto no Servidor
 		URI uri = uriBuilder.path("/topicos/{id}").buildAndExpand(topicoCreated.getId()).toUri();
 		return ResponseEntity.created(uri).body(new TopicoDto(topicoCreated));
+	}
+	
+	@GetMapping("/{id}")
+	public DetalheDoTopicoDto details(@PathVariable Long id) {
+		Topico topico = topicoRepository.getOne(id);
+		
+		return new DetalheDoTopicoDto(topico);
 	}
 }
