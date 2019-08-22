@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Configuration
 public class SecurityConfigurations extends WebSecurityConfigurerAdapter{
 
-	//Con
+	//Configuracao de autenticacao
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 	}
@@ -23,9 +23,12 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 		.antMatchers(HttpMethod.GET, "/topicos").permitAll()
-		.antMatchers(HttpMethod.GET, "/topicos/*").permitAll();
+		.antMatchers(HttpMethod.GET, "/topicos/*").permitAll()
+		.anyRequest().authenticated()
+		.and().formLogin();
 	}
 	
+	//Configuracao de recursos estaticos (css, js, imagens, etc.)
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 	}
