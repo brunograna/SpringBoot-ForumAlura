@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -49,10 +50,7 @@ public class TopicosController {
 
 	@GetMapping
 	public Page<TopicoDto> list(@RequestParam(required = false) String nomeCurso,
-			@RequestParam int pagina, @RequestParam int qtd, String ordenacao){
-		
-		Pageable paginacao = PageRequest.of(pagina, qtd, Direction.DESC, ordenacao);
-		
+			@PageableDefault(page = 0, size = 10, direction = Direction.ASC, sort = "id") Pageable paginacao){		
 		
 		if(nomeCurso == null) {
 			Page<Topico> topicos = topicoRepository.findAll(paginacao);
